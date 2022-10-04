@@ -23,11 +23,13 @@ contract UnstoppableLender is ReentrancyGuard {
         damnValuableToken = IERC20(tokenAddress);
     }
 
-    function depositTokens(uint256 amount) external nonReentrant {
+    function depositTokens(uint256 amount) external nonReentrant returns (address) {
         require(amount > 0, "Must deposit at least one token");
         // Transfer token from sender. Sender must have first approved them.
         damnValuableToken.transferFrom(msg.sender, address(this), amount);
         poolBalance = poolBalance + amount;
+
+        return msg.sender;
     }
 
     function flashLoan(uint256 borrowAmount) external nonReentrant {

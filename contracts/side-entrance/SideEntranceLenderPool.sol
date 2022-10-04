@@ -16,7 +16,12 @@ contract SideEntranceLenderPool {
 
     mapping (address => uint256) private balances;
 
+    function bbb(address addr) public view returns (uint) {
+        return balances[addr];
+    }
+
     function deposit() external payable {
+        require(msg.value > 0, "deposit == 0");
         balances[msg.sender] += msg.value;
     }
 
